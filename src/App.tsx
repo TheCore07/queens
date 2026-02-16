@@ -1,13 +1,18 @@
-import { Button } from "@/components/ui/button.tsx";
-import { useTheme } from "@/hooks/useTheme.ts";
-import { getBoard } from "@/api/Game.ts";
-import { useEffect, useState } from "react";
-import type {BoardCellInterface} from "@/interfaces/BoardCell.interface.ts";
-import BoardCell from "@/components/queens/BoardCell.tsx";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "@/hooks/useTheme";
+import { Board } from "@/components/queens/Board";
+import { useQueensGame } from "@/features/queens/useQueensGame";
 
 function App() {
     const { setTheme } = useTheme();
-
+    const {
+        board,
+        isLoading,
+        cycleCell,
+        undo,
+        reset,
+        isWin,
+    } = useQueensGame();
 
     return (
         <div className="p-4 space-y-4">
@@ -15,10 +20,24 @@ function App() {
                 <Button onClick={() => setTheme("white")}>White</Button>
                 <Button onClick={() => setTheme("dark")}>Dark</Button>
                 <Button onClick={() => setTheme("pink")}>Pink</Button>
-                
             </div>
 
+            {isLoading && <div>Loading...</div>}
 
+            {board && (
+                <Board
+                    board={board}
+                    onCellClick={cycleCell}
+                    onUndo={undo}
+                    onReset={reset}
+                />
+            )}
+
+            {isWin() && (
+                <div className="mt-4 text-green-600 text-xl font-bold">
+                    🎉 Du hast gewonnen!
+                </div>
+            )}
         </div>
     );
 }
