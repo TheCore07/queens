@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getBoard } from "@/api/Game";
-import {BoardCellInterface} from "@/interfaces/BoardCell.interface.ts";
+import type {BoardCellInterface} from "@/interfaces/BoardCell.interface.ts";
 
 export function useQueensGame() {
     const [board, setBoard] = useState<BoardCellInterface[][]>();

@@ -9,7 +9,7 @@ interface BoardProps {
     onReset: () => void;
 }
 
-function Board({ board, onCellClick, onUndo, onReset }: BoardProps) {
+export default function Board({ board, onCellClick, onUndo, onReset }: BoardProps) {
     return (
         <div>
             <div className="flex gap-2 mb-3">
@@ -35,4 +35,3 @@ function Board({ board, onCellClick, onUndo, onReset }: BoardProps) {
     );
 }
 
-export default Board;

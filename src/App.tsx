@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/useTheme";
-import { Board } from "@/components/queens/Board";
-import { useQueensGame } from "@/features/queens/useQueensGame";
+import Board from "@/components/queens/Board";
+import { useQueensGame } from "@/hooks/queens/useQueensGame";
 
 function App() {
     const { setTheme } = useTheme();
