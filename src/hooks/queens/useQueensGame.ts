@@ -1,30 +1,41 @@
 import { useEffect, useState } from "react";
-import { getBoard } from "@/api/Game";
-import type {BoardCellInterface} from "@/interfaces/BoardCell.interface.ts";
+import { getDailyBoard, getInfinityBoard } from "@/api/Game";
+import type { BoardCellInterface } from "@/interfaces/BoardCell.interface.ts";
 
-export function useQueensGame() {
+type GameMode = "daily" | "infinity";
+
+export function useQueensGame(initialMode: GameMode = "daily") {
     const [board, setBoard] = useState<BoardCellInterface[][]>();
     const [solution, setSolution] = useState<{ row: number; col: number }[]>([]);
     const [history, setHistory] = useState<BoardCellInterface[][][]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [mode, setMode] = useState<GameMode>(initialMode);
 
-    // --- Board laden ---
     useEffect(() => {
-        loadGame();
-    }, []);
+        loadGame(mode);
+    }, [mode]);
 
-    async function loadGame() {
+    async function loadGame(selectedMode: GameMode) {
         setIsLoading(true);
+
         try {
-            const response = await getBoard();
-            const b = response.data.board.map((row: BoardCellInterface[]) =>
-                row.map((cell) => ({
+            let response;
+
+            if (selectedMode === "daily") {
+                response = await getDailyBoard();
+            } else {
+                response = await getInfinityBoard();
+            }
+
+            const b = response.data.board.map((row: any[]) =>
+                row.map((cell: any) => ({
                     ...cell,
                     isBlocked: false,
                     isInvalid: false,
                     hasQueen: false,
                 }))
             );
+
             setBoard(b);
             setSolution(response.data.solution);
             setHistory([]);
@@ -35,7 +46,11 @@ export function useQueensGame() {
         }
     }
 
-    // --- Klick-Zyklus ---
+    function changeMode(newMode: GameMode) {
+        setMode(newMode);
+    }
+
+    // dein restlicher Code bleibt gleich
     function cycleCell(row: number, col: number) {
         if (!board) return;
 
@@ -57,7 +72,6 @@ export function useQueensGame() {
         setBoard(validateBoard(newBoard));
     }
 
-    // --- Validierung ---
     function validateBoard(current: BoardCellInterface[][]) {
         const size = current.length;
         const copy = current.map((r) =>
@@ -89,7 +103,6 @@ export function useQueensGame() {
         return copy;
     }
 
-    // --- Undo ---
     function undo() {
         if (history.length === 0) return;
         const last = history[history.length - 1];
@@ -97,7 +110,6 @@ export function useQueensGame() {
         setBoard(last);
     }
 
-    // --- Reset ---
     function reset() {
         if (!board) return;
 
@@ -114,7 +126,6 @@ export function useQueensGame() {
         setHistory([]);
     }
 
-    // --- Win Check ---
     function isWin(): boolean {
         if (!board) return false;
 
@@ -134,6 +145,8 @@ export function useQueensGame() {
         undo,
         reset,
         isWin,
-        reload: loadGame,
+        reload: () => loadGame(mode),
+        changeMode,
+        mode,
     };
 }

@@ -13,6 +13,8 @@ const COLOR_CLASSES: Record<number, string> = {
     5: "bg-orange-200",
     6: "bg-amber-200",
     7: "bg-neutral-200",
+    8: "bg-pink-200",
+    9: "bg-cyan-200"
 };
 
 export default function BoardCell({

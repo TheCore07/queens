@@ -12,7 +12,7 @@ function App() {
         undo,
         reset,
         isWin,
-    } = useQueensGame();
+    } = useQueensGame("infinity");
 
     return (
         <div className="p-4 space-y-4">
