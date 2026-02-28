@@ -36,7 +36,7 @@ function App() {
         changeMode,
         autoFillEnabled,
         setAutoFillEnabled
-    } = useQueensGame(gameMode);
+    } = useQueensGame(gameMode, isAuthenticated);
 
     const handleModeChange = (mode: "daily" | "infinity") => {
         setGameMode(mode);

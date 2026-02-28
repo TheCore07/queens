@@ -8,7 +8,7 @@ type GameMode = "daily" | "infinity";
 
 const AUTO_FILL_COOKIE = "auto-fill";
 
-export function useQueensGame(initialMode: GameMode = "daily") {
+export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: boolean = false) {
     const [board, setBoard] = useState<BoardCellInterface[][]>();
     const [solution, setSolution] = useState<SolutionInterface[]>([]);
     const [history, setHistory] = useState<BoardCellInterface[][][]>([]);
@@ -74,11 +74,6 @@ export function useQueensGame(initialMode: GameMode = "daily") {
             }
             
         } catch (err: any) {
-            // Silence 401 errors for daily board if user is guest - they should still see the board
-            if (err.response?.status === 401 && selectedMode === "daily") {
-                console.warn("User is guest, but board load failed. This might be a CORS or unexpected Auth issue.");
-            }
-            
             console.error("Game load error:", err);
             setError(err.response?.data?.message || err.message || "Failed to load game");
         } finally {
@@ -87,7 +82,6 @@ export function useQueensGame(initialMode: GameMode = "daily") {
     }, []);
 
     useEffect(() => {
-        // Start timer only if game is loaded and not won/submitted
         if (!isLoading && !isWon && !isSubmitted && !error && board) {
             if (timerRef.current !== null) window.clearInterval(timerRef.current);
             
@@ -202,7 +196,8 @@ export function useQueensGame(initialMode: GameMode = "daily") {
         if (!anyInvalid && placedQueens.length === solution.length) {
             setIsWon(true);
             
-            if (!isSubmitted) {
+            // Only submit if user is authenticated
+            if (!isSubmitted && isAuthenticated) {
                 setIsSubmitted(true);
                 try {
                     if (mode === "daily") {
@@ -215,7 +210,7 @@ export function useQueensGame(initialMode: GameMode = "daily") {
                 }
             }
         }
-    }, [mode, solution, isSubmitted, elapsedTime, isWon]);
+    }, [mode, solution, isSubmitted, elapsedTime, isWon, isAuthenticated]);
 
     function cycleCell(row: number, col: number) {
         if (!board || isWon || isSubmitted) return;
