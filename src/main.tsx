@@ -5,10 +5,12 @@ import './i18n'
 import App from './App.tsx'
 import { AuthProvider } from './contexts/AuthContext'
 import { BrowserRouter } from 'react-router-dom'
+import { Analytics } from "@vercel/analytics/react";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
+        <Analytics/>
       <AuthProvider>
         <App />
       </AuthProvider>
