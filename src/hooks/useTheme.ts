@@ -1,19 +1,8 @@
 import { useState, useEffect } from "react";
+import { getCookie, safeSetCookie } from "@/lib/cookieUtils";
 
 const THEME_COOKIE = "theme";
 
-const getCookie = (name: string) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(";").shift();
-    return null;
-};
-
-const setCookie = (name: string, value: string) => {
-    document.cookie = `${name}=${value};path=/`;
-};
-
-// Funktion, um den initialen Theme-Wert zu bestimmen
 const getInitialTheme = (): string => {
     const savedTheme = getCookie(THEME_COOKIE);
     if (savedTheme) return savedTheme;
@@ -33,11 +22,10 @@ export function useTheme() {
     const setTheme = (newTheme: string) => {
         setThemeState(newTheme);
         document.documentElement.className = newTheme;
-        setCookie(THEME_COOKIE, newTheme);
+        safeSetCookie(THEME_COOKIE, newTheme);
     };
 
     useEffect(() => {
-        // Sicherstellen, dass die Klasse gesetzt ist, falls SSR
         document.documentElement.className = theme;
     }, [theme]);
 

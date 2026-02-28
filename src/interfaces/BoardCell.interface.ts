@@ -1,7 +1,8 @@
 export type BoardCellInterface = {
     color: number;
     hasQueen: boolean;
-    isBlocked: boolean;
-    isInvalid?: boolean; // für Regelprüfung
-    isHighlighted?: boolean; // optional Highlight
+    isBlocked: boolean; // Manual block by user
+    isAutoBlocked?: boolean; // Automatic block by system
+    isInvalid?: boolean;
+    isHighlighted?: boolean;
 }

@@ -1,0 +1,52 @@
+{
+  "translation": {
+    "header": {
+      "daily": "Daily",
+      "infinity": "Endlos",
+      "leaderboard": "Leaderboard",
+      "login": "Login",
+      "logout": "Abmelden",
+      "streak": "Streak"
+    },
+    "game": {
+      "dailyChallenge": "Das Daily Puzzle",
+      "infinityMode": "Endlos-Modus",
+      "instructions": "Setze in jede Zeile, Spalte und Farbfläche genau eine Krone. Die Kronen dürfen sich auch diagonal nicht berühren.",
+      "solved": "Geschafft!",
+      "recorded": "Stark! Deine Zeit steht jetzt im Leaderboard.",
+      "nextPuzzle": "Nächstes Rätsel",
+      "loading": "Board wird vorbereitet...",
+      "settings": "Einstellungen",
+      "autoFill": "Automatisches X",
+      "autoFillDesc": "Setzt automatisch X-Markierungen um jede gesetzte Krone herum.",
+      "undo": "Rückgängig",
+      "reset": "Neu starten"
+    },
+    "auth": {
+      "login": "Login",
+      "register": "Registrieren",
+      "email": "E-Mail",
+      "username": "Nutzername",
+      "password": "Passwort",
+      "noAccount": "Noch kein Konto?",
+      "haveAccount": "Hast du schon ein Konto?",
+      "loggingIn": "Du wirst angemeldet...",
+      "creatingAccount": "Konto wird erstellt..."
+    },
+    "cookies": {
+      "title": "Kurze Frage zu Cookies",
+      "description": "Dürfen wir uns deine Sprache, dein Theme und Sachen wie das automatische X merken? Dann musst du das nicht jedes Mal neu einstellen.",
+      "accept": "Klar, gerne!",
+      "decline": "Lieber nicht",
+      "essential": "Nur die nötigsten Sachen speichern wir trotzdem."
+    },
+    "admin": {
+      "title": "Admin Bereich",
+      "generateDaily": "Neues Daily erstellen",
+      "generateDesc": "Falls heute noch kein Board da ist, kannst du hier manuell eins generieren.",
+      "button": "Jetzt erstellen",
+      "success": "Neues Daily ist live!",
+      "error": "Hat leider nicht geklappt."
+    }
+  }
+}

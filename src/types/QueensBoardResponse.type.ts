@@ -8,4 +8,10 @@ export interface QueensBoardResponse {
         col: number;
         color: number;
     }[];
+    isSolved?: boolean;
+    userSolution?: {
+        row: number;
+        col: number;
+        color: number;
+    }[];
 }
