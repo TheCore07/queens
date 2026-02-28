@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { getLeaderboard, getInfinityLeaderboard } from '@/api/Game';
 import { useTranslation } from 'react-i18next';
 import { Trophy, Clock, Zap, Infinity as InfinityIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 interface DailyEntry {
     userId: {
