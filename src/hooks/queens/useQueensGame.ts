@@ -24,7 +24,6 @@ export function useQueensGame(initialMode: GameMode = "daily") {
         return saved === "true";
     });
     
-    // Timer interval reference
     const timerRef = useRef<number | null>(null);
 
     const loadGame = useCallback(async (selectedMode: GameMode) => {
@@ -34,7 +33,6 @@ export function useQueensGame(initialMode: GameMode = "daily") {
         setIsWon(false);
         setElapsedTime(0);
         
-        // Clear any existing timer immediately when starting to load
         if (timerRef.current !== null) {
             window.clearInterval(timerRef.current);
             timerRef.current = null;
@@ -76,6 +74,11 @@ export function useQueensGame(initialMode: GameMode = "daily") {
             }
             
         } catch (err: any) {
+            // Silence 401 errors for daily board if user is guest - they should still see the board
+            if (err.response?.status === 401 && selectedMode === "daily") {
+                console.warn("User is guest, but board load failed. This might be a CORS or unexpected Auth issue.");
+            }
+            
             console.error("Game load error:", err);
             setError(err.response?.data?.message || err.message || "Failed to load game");
         } finally {
@@ -83,17 +86,15 @@ export function useQueensGame(initialMode: GameMode = "daily") {
         }
     }, []);
 
-    // Separate Timer Effect
     useEffect(() => {
         // Start timer only if game is loaded and not won/submitted
-        if (!isLoading && !isWon && !isSubmitted && !error) {
+        if (!isLoading && !isWon && !isSubmitted && !error && board) {
             if (timerRef.current !== null) window.clearInterval(timerRef.current);
             
             timerRef.current = window.setInterval(() => {
                 setElapsedTime(prev => prev + 1);
             }, 1000);
         } else {
-            // Stop timer if loading, won, or error
             if (timerRef.current !== null) {
                 window.clearInterval(timerRef.current);
                 timerRef.current = null;
@@ -106,7 +107,7 @@ export function useQueensGame(initialMode: GameMode = "daily") {
                 timerRef.current = null;
             }
         };
-    }, [isLoading, isWon, isSubmitted, error]);
+    }, [isLoading, isWon, isSubmitted, error, board]);
 
     useEffect(() => {
         loadGame(mode);
@@ -201,7 +202,6 @@ export function useQueensGame(initialMode: GameMode = "daily") {
         if (!anyInvalid && placedQueens.length === solution.length) {
             setIsWon(true);
             
-            // Submission is handled here, using current elapsedTime
             if (!isSubmitted) {
                 setIsSubmitted(true);
                 try {
