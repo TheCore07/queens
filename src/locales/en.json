@@ -1,0 +1,52 @@
+{
+  "translation": {
+    "header": {
+      "daily": "Daily",
+      "infinity": "Infinity",
+      "leaderboard": "Leaderboard",
+      "login": "Login",
+      "logout": "Logout",
+      "streak": "Streak"
+    },
+    "game": {
+      "dailyChallenge": "Daily Puzzle",
+      "infinityMode": "Infinity Mode",
+      "instructions": "Place exactly one crown in each row, column, and colored region. Crowns can't touch, even diagonally.",
+      "solved": "Solved!",
+      "recorded": "Awesome! Your time is on the leaderboard.",
+      "nextPuzzle": "Next Puzzle",
+      "loading": "Getting things ready...",
+      "settings": "Settings",
+      "autoFill": "Auto-X",
+      "autoFillDesc": "Automatically places X marks around each crown you place.",
+      "undo": "Undo",
+      "reset": "Reset"
+    },
+    "auth": {
+      "login": "Login",
+      "register": "Register",
+      "email": "Email",
+      "username": "Username",
+      "password": "Password",
+      "noAccount": "Don't have an account?",
+      "haveAccount": "Already have an account?",
+      "loggingIn": "Signing you in...",
+      "creatingAccount": "Creating your account..."
+    },
+    "cookies": {
+      "title": "Quick Cookie Question",
+      "description": "Can we remember your language, theme, and game settings (like Auto-X)? It'll save you from setting it up every time.",
+      "accept": "Sure thing!",
+      "decline": "No thanks",
+      "essential": "We'll only store the basics then."
+    },
+    "admin": {
+      "title": "Admin Panel",
+      "generateDaily": "Create new Daily",
+      "generateDesc": "If there's no board yet, you can manually generate one here.",
+      "button": "Create Now",
+      "success": "New Daily is live!",
+      "error": "Something went wrong."
+    }
+  }
+}
