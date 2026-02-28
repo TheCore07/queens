@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
 export const api = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: API_BASE_URL,
     withCredentials: true,
     headers: {
         "Content-Type": "application/json",
@@ -18,14 +20,14 @@ api.interceptors.response.use(
         if (
             error.response?.status === 401 && 
             !originalRequest._retry && 
-            !originalRequest.url.includes('/auth/refresh') &&
-            !originalRequest.url.includes('/auth/login')
+            !originalRequest.url?.includes('/auth/refresh') &&
+            !originalRequest.url?.includes('/auth/login')
         ) {
             originalRequest._retry = true;
 
             try {
-                // Try to refresh the token
-                await axios.post('http://localhost:3000/auth/refresh', {}, { withCredentials: true });
+                // Try to refresh the token using the base URL
+                await axios.post(`${API_BASE_URL}/auth/refresh`, {}, { withCredentials: true });
                 return api(originalRequest);
             } catch (refreshError) {
                 // If refresh fails, the user needs to login again
