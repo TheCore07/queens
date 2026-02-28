@@ -8,6 +8,14 @@
       "logout": "Logout",
       "streak": "Streak"
     },
+    "leaderboard": {
+      "daily": "Daily Leaderboard",
+      "infinity": "Infinity Champions",
+      "time": "Time",
+      "solved": "Solved",
+      "noEntries": "No entries yet for today.",
+      "noInfinity": "No one has solved an infinity puzzle yet."
+    },
     "game": {
       "dailyChallenge": "Daily Puzzle",
       "infinityMode": "Infinity Mode",

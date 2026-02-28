@@ -29,6 +29,10 @@ export const getLeaderboard = (date?: string) => {
     });
 };
 
+export const getInfinityLeaderboard = () => {
+    return api.get('/game/leaderboard/infinity');
+};
+
 export const triggerDailyGeneration = () => {
     return api.post('/game/daily/generate');
 };
