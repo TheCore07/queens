@@ -8,6 +8,14 @@
       "logout": "Abmelden",
       "streak": "Streak"
     },
+    "leaderboard": {
+      "daily": "Daily Bestenliste",
+      "infinity": "Endlos Champion",
+      "time": "Zeit",
+      "solved": "Gelöst",
+      "noEntries": "Heute noch keine Einträge.",
+      "noInfinity": "Bisher hat noch niemand im Endlos-Modus gewonnen."
+    },
     "game": {
       "dailyChallenge": "Das Daily Puzzle",
       "infinityMode": "Endlos-Modus",
