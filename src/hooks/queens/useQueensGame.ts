@@ -25,6 +25,7 @@ export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: 
     });
     
     const timerRef = useRef<number | null>(null);
+    const startTimeRef = useRef<number | null>(null);
 
     const loadGame = useCallback(async (selectedMode: GameMode) => {
         setIsLoading(true);
@@ -32,6 +33,7 @@ export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: 
         setIsSubmitted(false);
         setIsWon(false);
         setElapsedTime(0);
+        startTimeRef.current = null;
         
         if (timerRef.current !== null) {
             window.clearInterval(timerRef.current);
@@ -71,6 +73,8 @@ export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: 
             if (data.isSolved) {
                 setIsWon(true);
                 setIsSubmitted(true);
+            } else {
+                startTimeRef.current = Date.now();
             }
             
         } catch (err: any) {
@@ -82,12 +86,14 @@ export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: 
     }, []);
 
     useEffect(() => {
-        if (!isLoading && !isWon && !isSubmitted && !error && board) {
+        if (!isLoading && !isWon && !isSubmitted && !error && board && startTimeRef.current) {
             if (timerRef.current !== null) window.clearInterval(timerRef.current);
             
             timerRef.current = window.setInterval(() => {
-                setElapsedTime(prev => prev + 1);
-            }, 1000);
+                if (startTimeRef.current) {
+                    setElapsedTime(Math.floor((Date.now() - startTimeRef.current) / 1000));
+                }
+            }, 100);
         } else {
             if (timerRef.current !== null) {
                 window.clearInterval(timerRef.current);
@@ -196,14 +202,19 @@ export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: 
         if (!anyInvalid && placedQueens.length === solution.length) {
             setIsWon(true);
             
+            // Calculate final time accurately
+            const finalTime = startTimeRef.current 
+                ? Math.floor((Date.now() - startTimeRef.current) / 1000) 
+                : elapsedTime;
+
             // Only submit if user is authenticated
             if (!isSubmitted && isAuthenticated) {
                 setIsSubmitted(true);
                 try {
                     if (mode === "daily") {
-                        await submitDailyBoard(placedQueens, elapsedTime);
+                        await submitDailyBoard(placedQueens, finalTime);
                     } else {
-                        await submitInfinityBoard(placedQueens, elapsedTime);
+                        await submitInfinityBoard(placedQueens, finalTime);
                     }
                 } catch (err) {
                     console.error("Submission error:", err);
