@@ -93,20 +93,20 @@ export default function AdminPanel() {
                 <div className="flex items-center justify-between mb-8">
                     <h2 className="text-3xl font-black flex items-center gap-3">
                         <MessageSquare className="text-primary" size={32} />
-                        User Feedback
+                        {t('admin.feedbackTitle')}
                     </h2>
                     <Button variant="outline" size="sm" onClick={fetchFeedback} disabled={isFeedbackLoading} className="rounded-full">
                         <RefreshCw size={16} className={cn("mr-2", isFeedbackLoading && "animate-spin")} />
-                        Refresh
+                        {t('admin.refresh')}
                     </Button>
                 </div>
 
                 <div className="space-y-4">
                     {isFeedbackLoading ? (
-                        <div className="py-20 text-center opacity-50 font-bold animate-pulse">LOADING FEEDBACK...</div>
+                        <div className="py-20 text-center opacity-50 font-bold animate-pulse uppercase tracking-widest text-xs">{t('game.loading')}</div>
                     ) : feedback.length === 0 ? (
-                        <div className="py-20 text-center border-2 border-dashed rounded-3xl opacity-40 italic">
-                            No feedback received yet.
+                        <div className="py-20 text-center border-2 border-dashed rounded-3xl opacity-40 italic text-sm">
+                            {t('admin.noFeedback')}
                         </div>
                     ) : (
                         feedback.map((item) => (

@@ -55,7 +55,21 @@
       "generateDesc": "If there's no board yet, you can manually generate one here.",
       "button": "Create Now",
       "success": "New Daily is live!",
-      "error": "Something went wrong."
+      "error": "Something went wrong.",
+      "feedbackTitle": "User Feedback",
+      "noFeedback": "No feedback received yet.",
+      "refresh": "Refresh"
+    },
+    "feedback": {
+      "title": "Feedback",
+      "intro": "Do you have suggestions, found a bug or just want to say hi? We'd love to hear from you!",
+      "placeholder": "Type your message here...",
+      "submit": "Send Feedback",
+      "submitting": "Sending...",
+      "thanksTitle": "Thank you!",
+      "thanksText": "Your feedback has been received and helps us improve the game.",
+      "sendMore": "Send more feedback",
+      "submitError": "Failed to submit feedback"
     },
     "legal": {
       "notice": "Legal Notice",

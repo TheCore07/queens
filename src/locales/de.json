@@ -55,7 +55,21 @@
       "generateDesc": "Falls heute noch kein Board da ist, kannst du hier manuell eins generieren.",
       "button": "Jetzt erstellen",
       "success": "Neues Daily ist live!",
-      "error": "Hat leider nicht geklappt."
+      "error": "Hat leider nicht geklappt.",
+      "feedbackTitle": "User Feedback",
+      "noFeedback": "Noch kein Feedback erhalten.",
+      "refresh": "Aktualisieren"
+    },
+    "feedback": {
+      "title": "Feedback",
+      "intro": "Hast du Vorschläge, einen Bug gefunden oder willst einfach nur Hallo sagen? Wir freuen uns von dir zu hören!",
+      "placeholder": "Schreibe hier deine Nachricht...",
+      "submit": "Feedback senden",
+      "submitting": "Wird gesendet...",
+      "thanksTitle": "Vielen Dank!",
+      "thanksText": "Dein Feedback ist bei uns angekommen und hilft uns, das Spiel besser zu machen.",
+      "sendMore": "Weiteres Feedback senden",
+      "submitError": "Fehler beim Senden des Feedbacks"
     },
     "legal": {
       "notice": "Impressum",
