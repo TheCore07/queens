@@ -38,7 +38,7 @@ export default function BoardCell({
             onMouseDown={onMouseDown}
             onMouseUp={onMouseUp}
             className={`
-        w-12 h-12
+        w-[var(--cell-size)] h-[var(--cell-size)]
         flex items-center justify-center
         cursor-pointer select-none
         ${COLOR_CLASSES[color]}

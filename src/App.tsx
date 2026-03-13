@@ -339,7 +339,7 @@ function App() {
                     <button onClick={() => setView("legal")} className="hover:text-primary transition-colors cursor-pointer uppercase tracking-widest">Impressum</button>
                     <button onClick={() => setView("privacy")} className="hover:text-primary transition-colors cursor-pointer uppercase tracking-widest">Datenschutz</button>
                     <span className="opacity-30 hidden sm:inline">|</span>
-                    <span>&copy; {new Date().getFullYear()} Queens Game</span>
+                    <span>&copy; {new Date().getFullYear()} FabTheDev</span>
                 </div>
             </footer>
 

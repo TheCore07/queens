@@ -77,17 +77,17 @@
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   
-  /* Cell Colors Light */
-  --cell-0: oklch(0.85 0.15 25);   /* Red */
-  --cell-1: oklch(0.85 0.15 250);  /* Blue */
-  --cell-2: oklch(0.85 0.15 145);  /* Green */
-  --cell-3: oklch(0.85 0.15 85);   /* Yellow */
-  --cell-4: oklch(0.85 0.15 300);  /* Purple */
-  --cell-5: oklch(0.85 0.15 45);   /* Orange */
-  --cell-6: oklch(0.85 0.15 65);   /* Amber */
-  --cell-7: oklch(0.85 0 0);       /* Gray */
-  --cell-8: oklch(0.85 0.15 330);  /* Pink */
-  --cell-9: oklch(0.85 0.15 200);  /* Cyan */
+  /* Cell Colors Light - Optimized for contrast */
+  --cell-0: oklch(0.85 0.18 25);   /* Red */
+  --cell-1: oklch(0.85 0.18 250);  /* Blue */
+  --cell-2: oklch(0.85 0.18 145);  /* Green */
+  --cell-3: oklch(0.92 0.18 95);   /* Yellow (lighter) */
+  --cell-4: oklch(0.85 0.18 300);  /* Purple */
+  --cell-5: oklch(0.85 0.18 55);   /* Orange */
+  --cell-6: oklch(0.85 0.18 190);  /* Cyan/Teal */
+  --cell-7: oklch(0.85 0.05 0);    /* Soft Gray */
+  --cell-8: oklch(0.85 0.18 340);  /* Vivid Pink */
+  --cell-9: oklch(0.80 0.18 280);  /* Indigo */
 
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -124,17 +124,17 @@
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
 
-  /* Cell Colors Dark */
-  --cell-0: oklch(0.3 0.1 25 / 0.5);
-  --cell-1: oklch(0.3 0.1 250 / 0.5);
-  --cell-2: oklch(0.3 0.1 145 / 0.5);
-  --cell-3: oklch(0.3 0.1 85 / 0.5);
-  --cell-4: oklch(0.3 0.1 300 / 0.5);
-  --cell-5: oklch(0.3 0.1 45 / 0.5);
-  --cell-6: oklch(0.3 0.1 65 / 0.5);
-  --cell-7: oklch(0.3 0 0 / 0.5);
-  --cell-8: oklch(0.3 0.1 330 / 0.5);
-  --cell-9: oklch(0.3 0.1 200 / 0.5);
+  /* Cell Colors Dark - Enhanced contrast */
+  --cell-0: oklch(0.35 0.12 25 / 0.6);
+  --cell-1: oklch(0.35 0.12 250 / 0.6);
+  --cell-2: oklch(0.35 0.12 145 / 0.6);
+  --cell-3: oklch(0.35 0.12 95 / 0.6);
+  --cell-4: oklch(0.35 0.12 300 / 0.6);
+  --cell-5: oklch(0.35 0.12 55 / 0.6);
+  --cell-6: oklch(0.35 0.12 190 / 0.6);
+  --cell-7: oklch(0.35 0.02 0 / 0.6);
+  --cell-8: oklch(0.35 0.12 340 / 0.6);
+  --cell-9: oklch(0.35 0.12 280 / 0.6);
 
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
@@ -152,14 +152,14 @@
 }
 
 .pink {
-  --background: oklch(0.97 0.05 330);       /* Sehr helles Pink */
-  --foreground: oklch(0.2 0.15 330);       /* Dunkles Pink/Purpur für Text */
+  --background: oklch(0.97 0.05 330);
+  --foreground: oklch(0.2 0.15 330);
   --card: oklch(0.98 0.03 330);
   --card-foreground: oklch(0.2 0.15 330);
   --popover: oklch(1 0.02 330);
   --popover-foreground: oklch(0.2 0.15 330);
-  --primary: oklch(0.6 0.25 330);          /* Kräftiges Pink für Primäraktionen */
-  --primary-foreground: oklch(0.98 0.02 330); /* Weißer Text auf Primärfarbe */
+  --primary: oklch(0.6 0.25 330);
+  --primary-foreground: oklch(0.98 0.02 330);
   --secondary: oklch(0.92 0.1 330);
   --secondary-foreground: oklch(0.2 0.15 330);
   --muted: oklch(0.92 0.05 330);
@@ -171,19 +171,18 @@
   --input: oklch(0.95 0.05 330);
   --ring: oklch(0.6 0.25 330);
 
-  /* Pink Theme Cell Colors (Shades of Pink/Purple to avoid flickering) */
-  --cell-0: oklch(0.9 0.1 330);
-  --cell-1: oklch(0.85 0.15 340);
-  --cell-2: oklch(0.8 0.2 350);
-  --cell-3: oklch(0.9 0.15 320);
-  --cell-4: oklch(0.8 0.2 310);
-  --cell-5: oklch(0.85 0.1 335);
-  --cell-6: oklch(0.92 0.08 325);
-  --cell-7: oklch(0.88 0.12 345);
-  --cell-8: oklch(0.82 0.18 330);
-  --cell-9: oklch(0.94 0.06 315);
+  /* Pink Theme Cell Colors - Using varied saturation and lightness for distinction while staying "pink" */
+  --cell-0: oklch(0.92 0.08 330);  /* Very light */
+  --cell-1: oklch(0.85 0.15 340);  /* Vivid */
+  --cell-2: oklch(0.75 0.20 350);  /* Deeper */
+  --cell-3: oklch(0.90 0.12 310);  /* Purplish light */
+  --cell-4: oklch(0.80 0.25 325);  /* Intense pink */
+  --cell-5: oklch(0.88 0.18 345);  /* Rose */
+  --cell-6: oklch(0.70 0.15 315);  /* Darker purple-pink */
+  --cell-7: oklch(0.95 0.04 330);  /* Almost white-pink */
+  --cell-8: oklch(0.82 0.22 335);  /* Classic pink */
+  --cell-9: oklch(0.78 0.10 300);  /* Soft lavender */
 
-  /* Chart colors for Pink theme */
   --chart-1: oklch(0.6 0.25 330);
   --chart-2: oklch(0.7 0.2 330);
   --chart-3: oklch(0.5 0.2 330);
