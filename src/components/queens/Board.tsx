@@ -84,8 +84,13 @@ export default function Board({ board, onCellClick, onSetBlocked, onUndo, onRese
             </div>
 
             <div
-                className="grid gap-[1px] bg-foreground/10 border-2 border-foreground/20 rounded-xl overflow-hidden shadow-2xl touch-none"
-                style={{ gridTemplateColumns: `repeat(${board.length}, 3rem)` }}
+                className="grid gap-[1px] bg-foreground/10 border-2 border-foreground/20 rounded-xl overflow-hidden shadow-2xl touch-none mx-auto"
+                style={{ 
+                    gridTemplateColumns: `repeat(${board.length}, var(--cell-size))`,
+                    // Calculate cell size based on board length to fit 90% of screen width, max 3rem
+                    // @ts-ignore
+                    "--cell-size": `min(3rem, (90vw - 2rem) / ${board.length})`
+                }}
                 onMouseLeave={() => {
                     setIsDragging(false);
                     setStartCell(null);
