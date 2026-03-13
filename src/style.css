@@ -29,6 +29,18 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  
+  --color-cell-0: var(--cell-0);
+  --color-cell-1: var(--cell-1);
+  --color-cell-2: var(--cell-2);
+  --color-cell-3: var(--cell-3);
+  --color-cell-4: var(--cell-4);
+  --color-cell-5: var(--cell-5);
+  --color-cell-6: var(--cell-6);
+  --color-cell-7: var(--cell-7);
+  --color-cell-8: var(--cell-8);
+  --color-cell-9: var(--cell-9);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -64,6 +76,19 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+  
+  /* Cell Colors Light */
+  --cell-0: oklch(0.85 0.15 25);   /* Red */
+  --cell-1: oklch(0.85 0.15 250);  /* Blue */
+  --cell-2: oklch(0.85 0.15 145);  /* Green */
+  --cell-3: oklch(0.85 0.15 85);   /* Yellow */
+  --cell-4: oklch(0.85 0.15 300);  /* Purple */
+  --cell-5: oklch(0.85 0.15 45);   /* Orange */
+  --cell-6: oklch(0.85 0.15 65);   /* Amber */
+  --cell-7: oklch(0.85 0 0);       /* Gray */
+  --cell-8: oklch(0.85 0.15 330);  /* Pink */
+  --cell-9: oklch(0.85 0.15 200);  /* Cyan */
+
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -98,6 +123,19 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
+
+  /* Cell Colors Dark */
+  --cell-0: oklch(0.3 0.1 25 / 0.5);
+  --cell-1: oklch(0.3 0.1 250 / 0.5);
+  --cell-2: oklch(0.3 0.1 145 / 0.5);
+  --cell-3: oklch(0.3 0.1 85 / 0.5);
+  --cell-4: oklch(0.3 0.1 300 / 0.5);
+  --cell-5: oklch(0.3 0.1 45 / 0.5);
+  --cell-6: oklch(0.3 0.1 65 / 0.5);
+  --cell-7: oklch(0.3 0 0 / 0.5);
+  --cell-8: oklch(0.3 0.1 330 / 0.5);
+  --cell-9: oklch(0.3 0.1 200 / 0.5);
+
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -132,11 +170,26 @@
   --border: oklch(0.85 0.1 330);
   --input: oklch(0.95 0.05 330);
   --ring: oklch(0.6 0.25 330);
+
+  /* Pink Theme Cell Colors (Shades of Pink/Purple to avoid flickering) */
+  --cell-0: oklch(0.9 0.1 330);
+  --cell-1: oklch(0.85 0.15 340);
+  --cell-2: oklch(0.8 0.2 350);
+  --cell-3: oklch(0.9 0.15 320);
+  --cell-4: oklch(0.8 0.2 310);
+  --cell-5: oklch(0.85 0.1 335);
+  --cell-6: oklch(0.92 0.08 325);
+  --cell-7: oklch(0.88 0.12 345);
+  --cell-8: oklch(0.82 0.18 330);
+  --cell-9: oklch(0.94 0.06 315);
+
+  /* Chart colors for Pink theme */
   --chart-1: oklch(0.6 0.25 330);
   --chart-2: oklch(0.7 0.2 330);
   --chart-3: oklch(0.5 0.2 330);
   --chart-4: oklch(0.8 0.25 330);
   --chart-5: oklch(0.75 0.2 330);
+  
   --sidebar: oklch(0.97 0.05 330);
   --sidebar-foreground: oklch(0.2 0.15 330);
   --sidebar-primary: oklch(0.6 0.25 330);

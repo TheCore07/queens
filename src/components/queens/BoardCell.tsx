@@ -2,19 +2,22 @@ import type { BoardCellInterface } from "@/interfaces/BoardCell.interface.ts";
 
 type BoardCellProps = BoardCellInterface & {
     onClick?: () => void;
+    onMouseEnter?: () => void;
+    onMouseDown?: (e: React.MouseEvent) => void;
+    onMouseUp?: () => void;
 };
 
 const COLOR_CLASSES: Record<number, string> = {
-    0: "bg-red-300 dark:bg-red-900/50",
-    1: "bg-blue-300 dark:bg-blue-900/50",
-    2: "bg-green-300 dark:bg-green-900/50",
-    3: "bg-yellow-300 dark:bg-yellow-900/50",
-    4: "bg-purple-300 dark:bg-purple-900/50",
-    5: "bg-orange-300 dark:bg-orange-900/50",
-    6: "bg-amber-300 dark:bg-amber-900/50",
-    7: "bg-neutral-300 dark:bg-neutral-900/50",
-    8: "bg-pink-300 dark:bg-pink-900/50",
-    9: "bg-cyan-300 dark:bg-cyan-900/50"
+    0: "bg-cell-0",
+    1: "bg-cell-1",
+    2: "bg-cell-2",
+    3: "bg-cell-3",
+    4: "bg-cell-4",
+    5: "bg-cell-5",
+    6: "bg-cell-6",
+    7: "bg-cell-7",
+    8: "bg-cell-8",
+    9: "bg-cell-9"
 };
 
 export default function BoardCell({
@@ -24,10 +27,16 @@ export default function BoardCell({
                                       isAutoBlocked,
                                       isInvalid = false,
                                       onClick,
+                                      onMouseEnter,
+                                      onMouseDown,
+                                      onMouseUp,
                                   }: BoardCellProps) {
     return (
         <div
             onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseDown={onMouseDown}
+            onMouseUp={onMouseUp}
             className={`
         w-12 h-12
         flex items-center justify-center
