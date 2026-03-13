@@ -85,42 +85,6 @@ export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: 
         }
     }, []);
 
-    useEffect(() => {
-        if (!isLoading && !isWon && !isSubmitted && !error && board && startTimeRef.current) {
-            if (timerRef.current !== null) window.clearInterval(timerRef.current);
-            
-            timerRef.current = window.setInterval(() => {
-                if (startTimeRef.current) {
-                    setElapsedTime(Math.floor((Date.now() - startTimeRef.current) / 1000));
-                }
-            }, 100);
-        } else {
-            if (timerRef.current !== null) {
-                window.clearInterval(timerRef.current);
-                timerRef.current = null;
-            }
-        }
-
-        return () => {
-            if (timerRef.current !== null) {
-                window.clearInterval(timerRef.current);
-                timerRef.current = null;
-            }
-        };
-    }, [isLoading, isWon, isSubmitted, error, board]);
-
-    useEffect(() => {
-        loadGame(mode);
-    }, [mode, loadGame]);
-
-    function changeMode(newMode: GameMode) {
-        if (newMode === mode) {
-            loadGame(newMode); 
-        } else {
-            setMode(newMode);
-        }
-    }
-
     const calculateAutoBlocks = useCallback((currentBoard: BoardCellInterface[][]) => {
         if (!autoFillEnabled) {
             return currentBoard.map(row => row.map(cell => ({ ...cell, isAutoBlocked: false })));
@@ -202,12 +166,10 @@ export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: 
         if (!anyInvalid && placedQueens.length === solution.length) {
             setIsWon(true);
             
-            // Calculate final time accurately
             const finalTime = startTimeRef.current 
                 ? Math.floor((Date.now() - startTimeRef.current) / 1000) 
                 : elapsedTime;
 
-            // Only submit if user is authenticated
             if (!isSubmitted && isAuthenticated) {
                 setIsSubmitted(true);
                 try {
@@ -223,26 +185,105 @@ export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: 
         }
     }, [mode, solution, isSubmitted, elapsedTime, isWon, isAuthenticated]);
 
-    function cycleCell(row: number, col: number) {
-        if (!board || isWon || isSubmitted) return;
+    const setCellsBlocked = useCallback((cells: {row: number, col: number}[]) => {
+        setBoard(prev => {
+            if (!prev || isWon || isSubmitted) return prev;
+            
+            const newBoard = prev.map(row => [...row]);
+            let changed = false;
 
-        const newBoard = board.map((r, ri) =>
-            r.map((cell, ci) => {
-                if (ri !== row || ci !== col) return cell;
-                if (!cell.hasQueen && !cell.isBlocked)
-                    return { ...cell, isBlocked: true, hasQueen: false, isAutoBlocked: false };
-                if (cell.isBlocked)
-                    return { ...cell, isBlocked: false, hasQueen: true, isAutoBlocked: false };
-                return { ...cell, hasQueen: false, isBlocked: false, isAutoBlocked: false };
-            })
-        );
+            cells.forEach(({row, col}) => {
+                if (newBoard[row] && newBoard[row][col] && !newBoard[row][col].isBlocked && !newBoard[row][col].hasQueen) {
+                    newBoard[row][col] = { ...newBoard[row][col], isBlocked: true, hasQueen: false, isAutoBlocked: false };
+                    changed = true;
+                }
+            });
 
-        setHistory((h) => [...h, board]);
-        const withAutoBlocks = calculateAutoBlocks(newBoard);
-        const validated = validateBoard(withAutoBlocks);
-        setBoard(validated);
-        checkWinCondition(validated);
-    }
+            if (!changed) return prev;
+
+            const withAutoBlocks = calculateAutoBlocks(newBoard);
+            return validateBoard(withAutoBlocks);
+        });
+    }, [isWon, isSubmitted, calculateAutoBlocks, validateBoard]);
+
+    const cycleCell = useCallback((row: number, col: number) => {
+        setBoard(prev => {
+            if (!prev || isWon || isSubmitted) return prev;
+
+            const newBoard = prev.map((r, ri) =>
+                r.map((cell, ci) => {
+                    if (ri !== row || ci !== col) return cell;
+                    if (!cell.hasQueen && !cell.isBlocked)
+                        return { ...cell, isBlocked: true, hasQueen: false, isAutoBlocked: false };
+                    if (cell.isBlocked)
+                        return { ...cell, isBlocked: false, hasQueen: true, isAutoBlocked: false };
+                    return { ...cell, hasQueen: false, isBlocked: false, isAutoBlocked: false };
+                })
+            );
+
+            setHistory((h) => [...h, prev]);
+            const withAutoBlocks = calculateAutoBlocks(newBoard);
+            return validateBoard(withAutoBlocks);
+        });
+    }, [isWon, isSubmitted, calculateAutoBlocks, validateBoard]);
+
+    const undo = useCallback(() => {
+        if (history.length === 0 || isWon || isSubmitted) return;
+        const last = history[history.length - 1];
+        setHistory((h) => h.slice(0, h.length - 1));
+        const recalculated = calculateAutoBlocks(last);
+        setBoard(validateBoard(recalculated));
+    }, [history, isWon, isSubmitted, calculateAutoBlocks, validateBoard]);
+
+    const reset = useCallback(() => {
+        setBoard(prev => {
+            if (!prev || isWon || isSubmitted) return prev;
+            return prev.map((r) =>
+                r.map((cell) => ({
+                    ...cell,
+                    hasQueen: false,
+                    isBlocked: false,
+                    isAutoBlocked: false,
+                    isInvalid: false,
+                }))
+            );
+        });
+        setHistory([]);
+    }, [isWon, isSubmitted]);
+
+    useEffect(() => {
+        if (!isLoading && !isWon && !isSubmitted && !error && board && startTimeRef.current) {
+            if (timerRef.current !== null) window.clearInterval(timerRef.current);
+            
+            timerRef.current = window.setInterval(() => {
+                if (startTimeRef.current) {
+                    setElapsedTime(Math.floor((Date.now() - startTimeRef.current) / 1000));
+                }
+            }, 100);
+        } else {
+            if (timerRef.current !== null) {
+                window.clearInterval(timerRef.current);
+                timerRef.current = null;
+            }
+        }
+
+        return () => {
+            if (timerRef.current !== null) {
+                window.clearInterval(timerRef.current);
+                timerRef.current = null;
+            }
+        };
+    }, [isLoading, isWon, isSubmitted, error, board]);
+
+    useEffect(() => {
+        loadGame(mode);
+    }, [mode, loadGame]);
+
+    useEffect(() => {
+        if (board) {
+            checkWinCondition(board);
+        }
+    }, [board, checkWinCondition]);
 
     useEffect(() => {
         if (board) {
@@ -251,29 +292,6 @@ export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: 
         }
         safeSetCookie(AUTO_FILL_COOKIE, String(autoFillEnabled));
     }, [autoFillEnabled, calculateAutoBlocks, validateBoard]);
-
-    function undo() {
-        if (history.length === 0 || isWon || isSubmitted) return;
-        const last = history[history.length - 1];
-        setHistory((h) => h.slice(0, h.length - 1));
-        const recalculated = calculateAutoBlocks(last);
-        setBoard(validateBoard(recalculated));
-    }
-
-    function reset() {
-        if (!board || isWon || isSubmitted) return;
-        const cleared = board.map((r) =>
-            r.map((cell) => ({
-                ...cell,
-                hasQueen: false,
-                isBlocked: false,
-                isAutoBlocked: false,
-                isInvalid: false,
-            }))
-        );
-        setBoard(cleared);
-        setHistory([]);
-    }
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
@@ -286,6 +304,7 @@ export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: 
         isLoading,
         error,
         cycleCell,
+        setCellsBlocked,
         undo,
         reset,
         isWin: isWon,
@@ -293,7 +312,13 @@ export function useQueensGame(initialMode: GameMode = "daily", isAuthenticated: 
         elapsedTime,
         formattedTime: formatTime(elapsedTime),
         reload: () => loadGame(mode),
-        changeMode,
+        changeMode: (newMode: GameMode) => {
+            if (newMode === mode) {
+                loadGame(newMode); 
+            } else {
+                setMode(newMode);
+            }
+        },
         mode,
         autoFillEnabled,
         setAutoFillEnabled
